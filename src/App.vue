@@ -28,6 +28,10 @@
         </label>
       </div>
     </div>
+    <div class="card">
+      <h2>{{ $i18n('app.title') }}</h2>
+      <button class="btn" @click="changelang">{{ $i18n('app.changeBtn') }}</button>
+    </div>
   </div>
 </template>
 
@@ -42,6 +46,7 @@ import focusDerective from '@/focusDerective';
 import colorDerective from '@/colorDerective';
 
 export default {
+  inject: ['changeI18N'],
   mixins: [alertMixin],
   directives: {
     focus: focusDerective,
@@ -55,7 +60,15 @@ export default {
     return {
       myColor: 'darkred',
       type: 'color',
+      language: 'ru',
     };
+  },
+  methods: {
+    changelang() {
+      this.language = this.language === 'ru' ? 'en' : 'ru';
+      this.changeI18N(this.language);
+      this.$forceUpdate();
+    },
   },
 };
 </script>
